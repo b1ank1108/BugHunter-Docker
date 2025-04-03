@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  bughunter:
+    image: bughunter:latest
+    container_name: bughunter
+    volumes:
+      # 配置文件挂载
+      - ./config:/root/.config
+      # 字典挂载
+      - ./wordlists:/root/wordlists
+      # 脚本挂载
+      - ./scripts:/root/scripts
+      # 输出结果挂载
+      - ./output:/root/output
+      # cent 模板挂载
+      - ./tools/cent-nuclei-templates:/root/cent-nuclei-templates
+      # 目标挂载
+      - ./targets:/root/targets
+      # workflow 挂载
+      - ./workflow:/root/workflow
+      
+    restart: unless-stopped
+    stdin_open: true
+    tty: true 

@@ -1,0 +1,77 @@
+# 忽略操作系统文件
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# 忽略日志文件
+*.log
+logs/
+
+# 忽略编译后的文件
+*.class
+*.jar
+*.war
+*.ear
+*.pyc
+__pycache__/
+*.py[cod]
+*$py.class
+
+# 忽略环境配置文件
+.env
+.env.*
+.venv
+env/
+venv/
+ENV/
+
+# 忽略Docker相关临时文件
+.docker/
+.dockerignore
+*.dockerfile.tmp
+
+# 忽略依赖和构建目录
+node_modules/
+dist/
+build/
+target/
+vendor/
+
+# 忽略输出目录中的临时文件和敏感数据
+output/*.json
+output/*.xml
+output/*.html
+output/reports/
+output/screenshots/
+
+# 忽略安全扫描结果(但保留目录结构)
+# output/subdomains.txt
+# output/alive-subdomains.txt
+# output/resolved-subdomains.txt
+
+# 忽略个人配置文件（但保留示例）
+config/personal/
+config/*_auth.yaml
+config/secrets.yaml
+config/tokens.json
+
+# 忽略缓存文件
+.cache/
+.nuclei-cache/
+.subfinder-cache/
+
+# 忽略IDE和编辑器文件
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# 忽略临时目录
+tmp/
+temp/ 

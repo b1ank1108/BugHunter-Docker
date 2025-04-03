@@ -1,0 +1,1 @@
+docker exec -it bughunter rayder -w /root/workflow/subfinder-alive.yaml

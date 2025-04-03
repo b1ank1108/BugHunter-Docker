@@ -1,0 +1,22 @@
+vars:
+  INPUT_FILE: "/root/targets/domain.txt"
+  OUTPUT_DIR: "/root/output"
+
+parallel: false
+modules:
+  - name: subdomain-finder
+    cmds:
+      - subfinder -dL "{{INPUT_FILE}}" -o "{{OUTPUT_DIR}}/subdomains.txt" -silent
+      - echo "[+] 子域名数量: $(wc -l < {{OUTPUT_DIR}}/subdomains.txt)" ｜ notify -silent
+    silent: true
+
+  - name: resolving-subdomains
+    cmds:
+      - cat "{{OUTPUT_DIR}}/subdomains.txt" | dnsx -silent -threads 100 -o "{{OUTPUT_DIR}}/resolved-subdomains.txt"
+    silent: true
+
+  - name: checking-alive-subdomains
+    cmds:
+      - httpx -l "{{OUTPUT_DIR}}/resolved-subdomains.txt" -o "{{OUTPUT_DIR}}/alive-subdomains.txt" -silent
+      - echo "[+] 存活子域名数量: $(wc -l < {{OUTPUT_DIR}}/alive-subdomains.txt)" ｜ notify -silent
+    silent: true

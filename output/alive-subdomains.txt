@@ -1,0 +1,11 @@
+http://b.ns.hackerone.com
+https://api.hackerone.com
+https://mta-sts.managed.hackerone.com
+https://www.hackerone.com
+https://mta-sts.hackerone.com
+http://a.ns.hackerone.com
+https://mta-sts.forwarding.hackerone.com
+https://support.hackerone.com
+https://resources.hackerone.com
+https://docs.hackerone.com
+https://gslink.hackerone.com

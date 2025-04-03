@@ -1,0 +1,7 @@
+custom:
+  - id: webhook
+    custom_webhook_url: https://oapi.dingtalk.com/robot/send?access_token=xxx
+    custom_method: POST
+    custom_format: '{"msgtype": "text","text": {"content":"{{data}}"}}'
+    custom_headers:
+      Content-Type: application/json
