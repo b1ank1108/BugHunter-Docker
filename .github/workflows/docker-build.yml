@@ -2,8 +2,8 @@ name: Monitor ProjectDiscovery Updates & Build Docker Image
 
 on:
   schedule:
-    # 每天凌晨3点运行
-    - cron: '0 3 * * *'
+    # 每周一凌晨3点运行
+    - cron: '0 3 * * 1'
   workflow_dispatch:  # 允许手动触发
 
 jobs:
