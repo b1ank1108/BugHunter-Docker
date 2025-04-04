@@ -1,12 +1,19 @@
 # 🔍 BugHunter-Docker
 
-All-in-one network security vulnerability scanning toolkit based on Docker containerization.
+[![Build Status](https://github.com/b1ank1108/BugHunter-Docker/actions/workflows/docker-build.yml/badge.svg)](https://github.com/b1ank1108/BugHunter-Docker/actions/workflows/docker-build.yml)
+[![Docker Pulls](https://img.shields.io/docker/pulls/b1ank1108/bughunter.svg)](https://hub.docker.com/r/b1ank1108/bughunter)
+[![Docker Image Size](https://img.shields.io/docker/image-size/b1ank1108/bughunter/latest)](https://hub.docker.com/r/b1ank1108/bughunter)
+[![Docker Stars](https://img.shields.io/docker/stars/b1ank1108/bughunter.svg)](https://hub.docker.com/r/b1ank1108/bughunter)
+
+All-in-one cybersecurity vulnerability scanning toolkit, based on Docker containerized deployment.
 
 English Version | [中文版本](README.md)
 
 ## 📋 Project Introduction
 
 BugHunter-Docker is a Docker container that integrates multiple powerful security tools, designed for cybersecurity professionals, penetration testers, and bug bounty hunters. This project consolidates commonly used security testing tools into a single container, enabling you to quickly deploy and execute a variety of security testing tasks.
+
+Latest version: 20240318
 
 ## 🚀 Features
 

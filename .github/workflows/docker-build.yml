@@ -1,0 +1,124 @@
+name: Monitor ProjectDiscovery Updates & Build Docker Image
+
+on:
+  schedule:
+    # 每天凌晨3点运行
+    - cron: '0 3 * * *'
+  workflow_dispatch:  # 允许手动触发
+
+jobs:
+  check-updates-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Check for ProjectDiscovery Updates
+        id: check-updates
+        run: |
+          # 保存上次构建时的版本信息
+          mkdir -p .version_cache
+          touch .version_cache/last_versions.txt
+          
+          # 定义要监控的ProjectDiscovery工具
+          TOOLS=("nuclei" "subfinder" "httpx" "dnsx" "notify")
+          UPDATED=false
+          
+          for TOOL in "${TOOLS[@]}"; do
+            echo "Checking $TOOL for updates..."
+            LATEST_VERSION=$(curl -s "https://api.github.com/repos/projectdiscovery/$TOOL/releases/latest" | jq -r '.tag_name')
+            LAST_VERSION=$(grep "^$TOOL:" .version_cache/last_versions.txt | cut -d':' -f2 || echo "none")
+            
+            echo "Latest version: $LATEST_VERSION, Last built version: $LAST_VERSION"
+            
+            if [ "$LATEST_VERSION" != "$LAST_VERSION" ] && [ "$LATEST_VERSION" != "null" ]; then
+              echo "$TOOL has been updated to $LATEST_VERSION"
+              UPDATED=true
+              # 更新版本记录
+              if grep -q "^$TOOL:" .version_cache/last_versions.txt; then
+                sed -i "s/^$TOOL:.*/$TOOL:$LATEST_VERSION/" .version_cache/last_versions.txt
+              else
+                echo "$TOOL:$LATEST_VERSION" >> .version_cache/last_versions.txt
+              fi
+            fi
+          done
+          
+          # 设置输出变量，确定是否需要构建新版本
+          if $UPDATED; then
+            echo "updates_detected=true" >> $GITHUB_OUTPUT
+            # 使用日期作为版本号
+            BUILD_DATE=$(date +%Y%m%d)
+            echo "build_date=$BUILD_DATE" >> $GITHUB_OUTPUT
+            
+            # 提交版本更新
+            git config --local user.email "action@github.com"
+            git config --local user.name "GitHub Action"
+            git add .version_cache/
+            git commit -m "Update version tracking for $BUILD_DATE" || echo "No changes to commit"
+          else
+            echo "updates_detected=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Set up Docker Buildx
+        if: steps.check-updates.outputs.updates_detected == 'true'
+        uses: docker/setup-buildx-action@v2
+
+      - name: Login to DockerHub
+        if: steps.check-updates.outputs.updates_detected == 'true'
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        if: steps.check-updates.outputs.updates_detected == 'true'
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/bughunter:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/bughunter:${{ steps.check-updates.outputs.build_date }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Create Release
+        if: steps.check-updates.outputs.updates_detected == 'true'
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.check-updates.outputs.build_date }}
+          name: Release ${{ steps.check-updates.outputs.build_date }}
+          body: |
+            🔄 自动构建的新版本，基于ProjectDiscovery工具更新
+            
+            ### ProjectDiscovery工具更新:
+            ```
+            $(cat .version_cache/last_versions.txt)
+            ```
+            
+            Docker镜像已发布到Docker Hub:
+            - `${{ secrets.DOCKERHUB_USERNAME }}/bughunter:latest`
+            - `${{ secrets.DOCKERHUB_USERNAME }}/bughunter:${{ steps.check-updates.outputs.build_date }}`
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update README versions
+        if: steps.check-updates.outputs.updates_detected == 'true'
+        run: |
+          BUILD_DATE=${{ steps.check-updates.outputs.build_date }}
+          
+          # 更新中文版README
+          sed -i "s/最新版本:.*/最新版本: $BUILD_DATE/" README.md || echo "No version info in README.md"
+          
+          # 更新英文版README
+          sed -i "s/Latest version:.*/Latest version: $BUILD_DATE/" README_EN.md || echo "No version info in README_EN.md"
+          
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add README.md README_EN.md
+          git commit -m "Update README version to $BUILD_DATE" || echo "No changes to commit"
+          git push origin main 

@@ -1,5 +1,10 @@
 # 🔍 BugHunter-Docker 
 
+[![构建状态](https://github.com/b1ank1108/BugHunter-Docker/actions/workflows/docker-build.yml/badge.svg)](https://github.com/b1ank1108/BugHunter-Docker/actions/workflows/docker-build.yml)
+[![Docker Pulls](https://img.shields.io/docker/pulls/b1ank1108/bughunter.svg)](https://hub.docker.com/r/b1ank1108/bughunter)
+[![Docker Image Size](https://img.shields.io/docker/image-size/b1ank1108/bughunter/latest)](https://hub.docker.com/r/b1ank1108/bughunter)
+[![Docker Stars](https://img.shields.io/docker/stars/b1ank1108/bughunter.svg)](https://hub.docker.com/r/b1ank1108/bughunter)
+
 一站式网络安全漏洞扫描工具集，基于Docker容器化部署。
 
 [English Version](README_EN.md) | 中文版本
@@ -7,6 +12,8 @@
 ## 📋 项目介绍
 
 BugHunter-Docker是一个集成了多种强大安全工具的Docker容器，专为网络安全专业人员、渗透测试者和漏洞赏金猎人设计。该项目将常用的安全测试工具整合到一个容器中，使您能够快速部署并执行一系列安全测试工作。
+
+最新版本: 20240318
 
 ## 🚀 功能特点
 
