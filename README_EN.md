@@ -1,9 +1,8 @@
 # 🔍 BugHunter-Docker
 
 [![Build Status](https://github.com/b1ank1108/BugHunter-Docker/actions/workflows/docker-build.yml/badge.svg)](https://github.com/b1ank1108/BugHunter-Docker/actions/workflows/docker-build.yml)
-[![Docker Pulls](https://img.shields.io/docker/pulls/b1ank1108/bughunter.svg)](https://hub.docker.com/r/b1ank1108/bughunter)
-[![Docker Image Size](https://img.shields.io/docker/image-size/b1ank1108/bughunter/latest)](https://hub.docker.com/r/b1ank1108/bughunter)
-[![Docker Stars](https://img.shields.io/docker/stars/b1ank1108/bughunter.svg)](https://hub.docker.com/r/b1ank1108/bughunter)
+[![Docker Pulls](https://img.shields.io/docker/pulls/b1ank1108/bughunter)](https://hub.docker.com/r/b1ank1108/bughunter)
+[![Docker Stars](https://img.shields.io/docker/stars/b1ank1108/bughunter)](https://hub.docker.com/r/b1ank1108/bughunter)
 
 All-in-one cybersecurity vulnerability scanning toolkit, based on Docker containerized deployment.
 

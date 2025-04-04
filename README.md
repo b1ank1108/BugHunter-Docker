@@ -1,9 +1,8 @@
 # 🔍 BugHunter-Docker 
 
 [![构建状态](https://github.com/b1ank1108/BugHunter-Docker/actions/workflows/docker-build.yml/badge.svg)](https://github.com/b1ank1108/BugHunter-Docker/actions/workflows/docker-build.yml)
-[![Docker Pulls](https://img.shields.io/docker/pulls/b1ank1108/bughunter.svg)](https://hub.docker.com/r/b1ank1108/bughunter)
-[![Docker Image Size](https://img.shields.io/docker/image-size/b1ank1108/bughunter/latest)](https://hub.docker.com/r/b1ank1108/bughunter)
-[![Docker Stars](https://img.shields.io/docker/stars/b1ank1108/bughunter.svg)](https://hub.docker.com/r/b1ank1108/bughunter)
+[![Docker Pulls](https://img.shields.io/docker/pulls/b1ank1108/bughunter)](https://hub.docker.com/r/b1ank1108/bughunter)
+[![Docker Stars](https://img.shields.io/docker/stars/b1ank1108/bughunter)](https://hub.docker.com/r/b1ank1108/bughunter)
 
 一站式网络安全漏洞扫描工具集，基于Docker容器化部署。
 
