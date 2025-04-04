@@ -122,3 +122,13 @@ jobs:
           git add README.md README_EN.md
           git commit -m "Update README version to $BUILD_DATE" || echo "No changes to commit"
           git push origin main 
+
+      - name: Docker Hub Description
+        if: steps.check-updates.outputs.updates_detected == 'true'
+        uses: peter-evans/dockerhub-description@v4
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          repository: ${{ secrets.DOCKERHUB_USERNAME }}/bughunter
+          readme-filepath: ./README.md
+          short-description: "一站式网络安全漏洞扫描工具集，基于Docker容器化部署。" 
