@@ -1,4 +1,4 @@
-nuclei:v3.4.2
+nuclei:v3.4.3
 subfinder:v2.7.1
 httpx:v1.7.0
 dnsx:v1.2.2
