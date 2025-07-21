@@ -1,5 +1,5 @@
 nuclei:v3.4.7
 subfinder:v2.8.0
-httpx:v1.7.0
+httpx:v1.7.1
 dnsx:v1.2.2
 notify:v1.0.7
