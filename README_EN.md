@@ -12,7 +12,7 @@ English Version | [中文版本](README.md)
 
 BugHunter-Docker is a Docker container that integrates multiple powerful security tools, designed for cybersecurity professionals, penetration testers, and bug bounty hunters. This project consolidates commonly used security testing tools into a single container, enabling you to quickly deploy and execute a variety of security testing tasks.
 
-Latest version: 20251215
+Latest version: 20251222
 
 ## 🚀 Features
 
